@@ -50,13 +50,42 @@
       </div>
     </div>
 
-    <!-- Beeld -->
+    <!-- Beeld (carousel) -->
     <div class="relative flex justify-center md:justify-end">
-      <div
-        class="relative rounded-full bg-[radial-gradient(circle,rgba(248,127,12,0.15)_0%,rgba(248,127,12,0.05)_60%,transparent_90%)] w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] flex items-center justify-center shadow-[0_0_60px_-10px_rgba(248,127,12,0.25)]">
-        <img src="/lens.png" alt="Lens-Sun Sportlenzen"
-             class="relative w-[240px] sm:w-[300px] drop-shadow-[0_10px_25px_rgba(0,0,0,0.15)] transition-transform duration-500 hover:scale-105">
+      <!-- achtergrondglow -->
+      <div class="absolute inset-0 -z-10 pointer-events-none">
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full
+                    bg-[radial-gradient(circle,rgba(248,127,12,0.18)_0%,rgba(248,127,12,0.06)_60%,transparent_95%)]
+                    shadow-[0_0_60px_-10px_rgba(248,127,12,0.25)]"></div>
       </div>
+
+      <!-- Carousel container -->
+      <div id="hero-carousel" class="relative w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] overflow-hidden rounded-3xl bg-white/40 backdrop-blur supports-[backdrop-filter]:bg-white/30 ring-1 ring-white/40">
+        <!-- Slides -->
+        <img src="/1.jpg" alt="Lens-Sun visual 1" class="absolute inset-0 w-full h-full object-contain p-6 opacity-100 transition-opacity duration-500 ease-out">
+        <img src="/2.jpg" alt="Lens-Sun visual 2" class="absolute inset-0 w-full h-full object-contain p-6 opacity-0 transition-opacity duration-500 ease-out">
+        <img src="/3.jpg" alt="Lens-Sun visual 3" class="absolute inset-0 w-full h-full object-contain p-6 opacity-0 transition-opacity duration-500 ease-out">
+
+        <!-- Controls -->
+        <button type="button" aria-label="Vorige" class="group absolute left-3 top-1/2 -translate-y-1/2 grid place-items-center h-9 w-9 rounded-full bg-white/80 hover:bg-white shadow hover:shadow-md transition">
+          <svg class="h-4 w-4 text-[#f87f0c] group-hover:scale-110 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button type="button" aria-label="Volgende" class="group absolute right-3 top-1/2 -translate-y-1/2 grid place-items-center h-9 w-9 rounded-full bg-white/80 hover:bg-white shadow hover:shadow-md transition">
+          <svg class="h-4 w-4 text-[#f87f0c] group-hover:scale-110 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <!-- Dots -->
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
+          <button aria-label="Slide 1" class="h-2.5 w-2.5 rounded-full bg-[#f87f0c]"></button>
+          <button aria-label="Slide 2" class="h-2.5 w-2.5 rounded-full bg-white/70 ring-1 ring-[#f87f0c]/40"></button>
+          <button aria-label="Slide 3" class="h-2.5 w-2.5 rounded-full bg-white/70 ring-1 ring-[#f87f0c]/40"></button>
+        </div>
+      </div>
+
       <!-- zwevende highlight -->
       <div aria-hidden="true"
            class="absolute -bottom-6 right-6 w-[160px] h-[160px] bg-[#f87f0c]/20 rounded-full blur-3xl animate-pulse opacity-60"></div>
@@ -71,3 +100,50 @@
     </svg>
   </div>
 </section>
+
+<!-- Klein, simpel carousel-script -->
+<script>
+  (function() {
+    const root   = document.getElementById('hero-carousel');
+    if (!root) return;
+    const slides = Array.from(root.querySelectorAll('img'));
+    const [prevBtn, nextBtn] = root.querySelectorAll('button[aria-label]');
+    const dots   = Array.from(root.querySelectorAll('[aria-label^="Slide"]'));
+    let i = 0, timer;
+
+    function show(n){
+      i = (n + slides.length) % slides.length;
+      slides.forEach((img, idx) => img.style.opacity = idx === i ? '1' : '0');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('bg-[#f87f0c]', idx === i);
+        d.classList.toggle('bg-white/70', idx !== i);
+      });
+      resetTimer();
+    }
+
+    function next(){ show(i + 1); }
+    function prev(){ show(i - 1); }
+
+    function resetTimer(){
+      clearInterval(timer);
+      timer = setInterval(next, 4500);
+    }
+
+    // Bindings
+    nextBtn.addEventListener('click', next);
+    prevBtn.addEventListener('click', prev);
+    dots.forEach((d, idx) => d.addEventListener('click', () => show(idx)));
+
+    // Swipe (basic)
+    let sx = 0;
+    root.addEventListener('touchstart', e => sx = e.touches[0].clientX, {passive:true});
+    root.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (dx > 40) prev();
+      else if (dx < -40) next();
+    }, {passive:true});
+
+    // Start
+    show(0);
+  })();
+</script>

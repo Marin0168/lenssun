@@ -18,7 +18,7 @@
         </div>
 
         <!-- Thumbnails -->
-        <div class="grid grid-cols-4 gap-4">
+        {{-- <div class="grid grid-cols-4 gap-4">
           <button data-photo="{{ asset('product.jpg') }}" class="thumb active rounded-xl overflow-hidden ring-2 ring-primary/10 hover:ring-primary/40 transition">
             <img src="{{ asset('product.jpg') }}" alt="Verpakking vooraanzicht" class="w-full h-24 object-cover">
           </button>
@@ -31,7 +31,7 @@
           <button data-photo="{{ asset('product_alt3.jpg') }}" class="thumb rounded-xl overflow-hidden ring-2 ring-transparent hover:ring-primary/40 transition">
             <img src="{{ asset('product_alt3.jpg') }}" alt="Lens-Sun lifestyle" class="w-full h-24 object-cover">
           </button>
-        </div>
+        </div> --}}
 
         <!-- Badges / vertrouwen -->
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -82,14 +82,14 @@
                      class="rounded-lg border-2 border-gray-200 bg-white px-4 py-3 focus:border-primary focus:outline-none"/>
               <span class="mt-2 text-xs text-secondary/70">Tip: voer desnoods <span class="font-semibold">0.00</span> in als je geen sterkte nodig hebt.</span>
             </div>
-            <div class="flex flex-col">
+            {{-- <div class="flex flex-col">
               <label for="left-color" class="mb-2 text-sm font-semibold text-secondary">Kleur tint</label>
               <select id="left-color" class="rounded-lg border-2 border-gray-200 bg-white px-4 py-3 focus:border-primary focus:outline-none">
                 <option value="grijs">Grijs (neutraal)</option>
                 <option value="bruin">Bruin (warm)</option>
                 <option value="groen">Groen (contrast)</option>
               </select>
-            </div>
+            </div> --}}
           </div>
         </div>
 
@@ -125,14 +125,14 @@
               <input id="right-strength" type="number" min="-12" max="12" step="0.25" value="0" placeholder="0.00"
                      class="rounded-lg border-2 border-gray-200 bg-white px-4 py-3 focus:border-primary focus:outline-none"/>
             </div>
-            <div class="flex flex-col">
+            {{-- <div class="flex flex-col">
               <label for="right-color" class="mb-2 text-sm font-semibold text-secondary">Kleur tint</label>
               <select id="right-color" class="rounded-lg border-2 border-gray-200 bg-white px-4 py-3 focus:border-primary focus:outline-none">
                 <option value="grijs">Grijs (neutraal)</option>
                 <option value="bruin">Bruin (warm)</option>
                 <option value="groen">Groen (contrast)</option>
               </select>
-            </div>
+            </div> --}}
           </div>
         </div>
 
