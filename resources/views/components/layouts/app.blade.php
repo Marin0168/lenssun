@@ -7,6 +7,7 @@
     <title>@yield('title', 'Lens-Sun - Verduisterende Sportlenzen')</title>
     <meta name="description" content="@yield('meta_description', 'Verduisterende sportlenzen voor buitensporters. Blokkeer fel zonlicht, zie scherper en presteer beter. UV-bescherming en op maat vervaardigd.')">
     <link rel="canonical" href="@yield('canonical', 'https://www.lens-sun.com/')" />
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
 
 
     <!-- Tailwind CSS via CDN -->
